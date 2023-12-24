@@ -13,6 +13,7 @@ RUN apt-get -y update \
     wget \
     patchelf \
     libglew-dev \
+    libosmesa6-dev \
     && wget https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz && \
     mkdir -p /root/.mujoco && \
     tar -xf mujoco210-linux-x86_64.tar.gz -C /root/.mujoco && \
@@ -33,5 +34,12 @@ RUN \
     pip install -r /tmp/requirements.txt && \
     pip install highway-env>=1.7.1 && \
     pip cache purge 
+
+USER root
+
+RUN  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mujoco210/bin' >> /root/.bashrc && \
+    echo 'source /root/.bashrc' >> /root/.profile
+    
+USER $MAMBA_USER
 
 CMD /bin/bash
