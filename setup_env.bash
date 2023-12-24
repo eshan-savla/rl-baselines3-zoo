@@ -1,5 +1,6 @@
 #!/bin/bash
 venv_dir="$(pwd -P)/.venv/"
+sudo apt install -y patchelf libglew-dev
 if test -d $venv_dir;
 then
     echo "activating virtual environment"
