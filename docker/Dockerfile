@@ -10,6 +10,13 @@ RUN apt-get -y update \
     swig \
     # For building box2d
     build-essential \
+    wget \
+    patchelf \
+    libglew-dev \
+    && wget https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz && \
+    mkdir -p /root/.mujoco && \
+    tar -xf mujoco210-linux-x86_64.tar.gz -C /root/.mujoco && \
+    rm mujoco210-linux-x86_64.tar.gz \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,6 +32,6 @@ RUN \
     pip uninstall -y stable-baselines3 && \
     pip install -r /tmp/requirements.txt && \
     pip install highway-env>=1.7.1 && \
-    pip cache purge
+    pip cache purge 
 
 CMD /bin/bash

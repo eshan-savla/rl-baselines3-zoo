@@ -2,7 +2,7 @@
 
 PARENT=stablebaselines/stable-baselines3
 
-TAG=stablebaselines/rl-baselines3-zoo
+TAG=essav/rl-baselines3-zoo-rle
 VERSION=2.2.0a1
 
 if [[ ${USE_GPU} == "True" ]]; then
@@ -16,6 +16,7 @@ docker build --build-arg PARENT_IMAGE=${PARENT} --build-arg USE_GPU=${USE_GPU} -
 docker tag ${TAG}:${VERSION} ${TAG}:latest
 
 if [[ ${RELEASE} == "True" ]]; then
+  echo "Pushing to Docker Hub"
   docker push ${TAG}:${VERSION}
   docker push ${TAG}:latest
 fi
